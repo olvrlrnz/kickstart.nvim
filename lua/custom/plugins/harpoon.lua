@@ -33,7 +33,11 @@ return {
 
       vim.keymap.set('n', '<leader>hl', function()
         toggle_telescope(harpoon:list())
-      end, { desc = 'Open harpoon window' })
+      end, { desc = '[L]ist harpooned files' })
+
+      vim.keymap.set('n', '<leader>ha', function()
+        harpoon:list():add()
+      end, { desc = '[A]dd to harpoon' })
 
       require('telescope').setup {
         extensions = {
