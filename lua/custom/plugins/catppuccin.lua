@@ -8,5 +8,11 @@ return {
       vim.cmd.colorscheme 'catppuccin-mocha'
       vim.cmd.hi 'Comment gui=none'
     end,
+
+    config = function()
+      require('catppuccin').setup {
+        transparent_background = true,
+      }
+    end,
   },
 }
