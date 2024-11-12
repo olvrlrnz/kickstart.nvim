@@ -3,4 +3,5 @@ return {
   require 'custom.plugins.harpoon',
   require 'custom.plugins.neo-tree',
   require 'custom.plugins.fugitive',
+  require 'custom.plugins.toggleterm',
 }
