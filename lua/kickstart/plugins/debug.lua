@@ -21,6 +21,7 @@ return {
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
 
+    'theHamsta/nvim-dap-virtual-text',
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
   },
@@ -29,10 +30,13 @@ return {
     local dapui = require 'dapui'
     return {
       -- Basic debugging keymaps, feel free to change to your liking!
-      { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
-      { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
-      { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
-      { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
+      { '<F1>', dap.continue, desc = 'Debug: Start/Continue' },
+      { '<F2>', dap.step_into, desc = 'Debug: Step Into' },
+      { '<F3>', dap.step_over, desc = 'Debug: Step Over' },
+      { '<F4>', dap.step_out, desc = 'Debug: Step Out' },
+      { '<F5>', dap.step_back, desc = 'Debug: Step Back' },
+      { '<F10>', dapui.toggle, desc = 'Debug: See last session result.' },
+      { '<F12>', dap.restart, desc = 'Debug: Restart' },
       { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
       {
         '<leader>B',
@@ -41,8 +45,14 @@ return {
         end,
         desc = 'Debug: Set Breakpoint',
       },
+      {
+        '<leader>?',
+        function()
+          dapui.eval(nil, { enter = true })
+        end,
+        desc = 'Evaluate expression under cursor',
+      },
       -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-      { '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
       unpack(keys),
     }
   end,
@@ -50,6 +60,7 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
 
+    require('nvim-dap-virtual-text').setup {}
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
